@@ -1,0 +1,692 @@
+<!DOCTYPE html>
+<html lang="fr" class="h-full">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>French with Cédric - Se baigner dans la Seine</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        brandBg: '#FCEED4',
+                        brandFrame: '#A8A8A8',
+                        brandBlue: '#1E3A8A',
+                        brandRed: '#D83A38',
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body {
+            background-color: #FCEED4;
+            font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            color: #1F2937;
+        }
+        .tab-btn.active {
+            background-color: #1E3A8A;
+            color: #FFFFFF;
+            border-bottom: 4px solid #D83A38;
+        }
+    </style>
+</head>
+<body class="min-h-full flex flex-col justify-between">
+
+    <header class="bg-white border-b-2 border-brandFrame shadow-sm sticky top-0 z-50">
+        <div class="max-w-6xl mx-auto px-4 py-3 flex flex-wrap justify-between items-center gap-4">
+            <div class="flex items-center gap-3">
+                <div>
+                    <div class="flex items-center gap-2">
+                        <h1 class="text-xl md:text-2xl font-extrabold text-brandRed leading-tight">French with Cédric</h1>
+                        <span class="bg-brandBlue text-white text-xs font-black px-2 py-0.5 rounded-md shadow-sm">B1</span>
+                    </div>
+                    <p class="text-xs text-gray-600 font-semibold">Je comprends une vidéo : Se baigner dans la Seine</p>
+                </div>
+            </div>
+
+            <!-- Gamification Score Tracker -->
+            <div class="flex items-center gap-4 bg-brandBg px-4 py-2 rounded-xl border border-brandFrame shadow-inner">
+                <div class="text-center">
+                    <span class="text-xs uppercase font-bold text-gray-500 block">Score Global</span>
+                    <span id="global-score" class="text-2xl font-black text-brandBlue">0 pts</span>
+                </div>
+                <div class="w-24 md:w-36 bg-gray-200 h-3 rounded-full overflow-hidden border border-gray-300">
+                    <div id="global-progress" class="bg-brandRed h-full transition-all duration-500 w-0"></div>
+                </div>
+            </div>
+        </div>
+
+        <nav class="max-w-6xl mx-auto px-4 flex flex-wrap gap-2 border-t border-gray-200 pt-2 mt-1">
+            <button onclick="switchTab('tab-video')" id="btn-tab-video" class="tab-btn active px-4 py-2 rounded-t-lg font-bold text-sm md:text-base transition flex items-center gap-2">
+                <i class="fa-solid fa-play-circle"></i> 1. Vidéo
+            </button>
+            <button onclick="switchTab('tab-quiz')" id="btn-tab-quiz" class="tab-btn px-4 py-2 rounded-t-lg font-bold text-sm md:text-base text-brandBlue hover:bg-blue-100 transition flex items-center gap-2">
+                <i class="fa-solid fa-list-check"></i> 2. Questionnaire
+            </button>
+            <button onclick="switchTab('tab-games')" id="btn-tab-games" class="tab-btn px-4 py-2 rounded-t-lg font-bold text-sm md:text-base text-brandBlue hover:bg-blue-100 transition flex items-center gap-2">
+                <i class="fa-solid fa-gamepad"></i> 3. Jeux & Vocabulaire
+            </button>
+            <button onclick="switchTab('tab-more')" id="btn-tab-more" class="tab-btn px-4 py-2 rounded-t-lg font-bold text-sm md:text-base text-brandBlue hover:bg-blue-100 transition flex items-center gap-2">
+                <i class="fa-solid fa-pen-nib"></i> 4. Aller plus loin
+            </button>
+        </nav>
+    </header>
+
+    <!-- MAIN CONTAINER -->
+    <main class="max-w-6xl mx-auto px-4 py-6 flex-grow w-full">
+
+        <section id="tab-video" class="tab-content block space-y-6">
+            <div class="bg-white rounded-2xl p-6 border-2 border-brandFrame shadow-md">
+                <h2 class="text-2xl font-bold text-brandRed mb-3 flex items-center gap-2">
+                    <i class="fa-solid fa-circle-play text-brandBlue"></i> Regarde la vidéo explicative
+                </h2>
+                <p class="text-gray-700 mb-4">
+                    Visionne attentivement ce reportage sur les nouveaux sites de baignade dans la Seine à Paris. Tu pourras ensuite tester ta compréhension globale dans l'onglet 2 et t'entraîner sur le vocabulaire dans l'onglet 3.
+                </p>
+
+                <div class="relative aspect-video w-full rounded-xl overflow-hidden border-2 border-brandBlue shadow-lg">
+                    <iframe 
+                        class="w-full h-full" 
+                        src="https://www.youtube.com/embed/Qau_1vQAzNA" 
+                        title="La baignade dans la Seine à Paris" 
+                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                        allowfullscreen>
+                    </iframe>
+                </div>
+
+                <div class="flex justify-end mt-2">
+                    <a href="https://youtu.be/Qau_1vQAzNA" target="_blank" rel="noopener noreferrer" class="text-xs md:text-sm text-brandBlue hover:text-brandRed font-bold flex items-center gap-1 hover:underline">
+                        <i class="fa-solid fa-arrow-up-right-from-square"></i> Ouvrir la vidéo directement sur YouTube
+                    </a>
+                </div>
+
+                <div class="mt-6 flex justify-end">
+                    <button onclick="switchTab('tab-quiz')" class="bg-brandBlue text-white font-bold px-6 py-3 rounded-xl hover:bg-blue-900 transition flex items-center gap-2 shadow-md">
+                        Passer aux questions <i class="fa-solid fa-arrow-right"></i>
+                    </button>
+                </div>
+            </div>
+        </section>
+
+        <section id="tab-quiz" class="tab-content hidden space-y-6">
+            <div class="bg-white rounded-2xl p-6 border-2 border-brandFrame shadow-md">
+                <div class="flex justify-between items-center mb-4 pb-3 border-b border-gray-200">
+                    <div>
+                        <h2 class="text-2xl font-bold text-brandRed"><i class="fa-solid fa-circle-question"></i> Questionnaire de Compréhension</h2>
+                        <p class="text-sm text-gray-600">10 questions tirées au sort sur les 20 disponibles. Feedback immédiat !</p>
+                    </div>
+                    <button onclick="initQuiz()" class="bg-gray-100 hover:bg-gray-200 text-brandBlue px-3 py-1.5 rounded-lg text-xs font-bold border border-brandFrame">
+                        <i class="fa-solid fa-rotate"></i> Nouvelles questions
+                    </button>
+                </div>
+
+                <div id="quiz-container" class="space-y-6">
+                    <!-- Dynamic Question Cards injected by JS -->
+                </div>
+
+                <div class="mt-6 flex justify-end">
+                    <button onclick="switchTab('tab-games')" class="bg-brandBlue text-white font-bold px-6 py-2.5 rounded-xl hover:bg-blue-900 transition flex items-center gap-2 shadow-md">
+                        Passer aux jeux de vocabulaire <i class="fa-solid fa-gamepad"></i>
+                    </button>
+                </div>
+            </div>
+        </section>
+
+        <section id="tab-games" class="tab-content hidden space-y-8">
+
+            <!-- GAME 1: MATCHING -->
+            <div class="bg-white rounded-2xl p-6 border-2 border-brandFrame shadow-md">
+                <h3 class="text-xl font-bold text-brandRed mb-2 flex items-center gap-2">
+                    <i class="fa-solid fa-link text-brandBlue"></i> Jeu 1 : Relie les mots à leurs définitions
+                </h3>
+                <p class="text-sm text-gray-600 mb-4">Clique sur un mot à gauche, puis sur sa bonne définition à droite.</p>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div id="matching-words" class="space-y-2"></div>
+                    <div id="matching-defs" class="space-y-2"></div>
+                </div>
+                <div id="matching-feedback" class="mt-4 font-bold text-center h-6"></div>
+            </div>
+
+            <!-- GAME 2: IDIOMS & FIXED EXPRESSIONS -->
+            <div class="bg-white rounded-2xl p-6 border-2 border-brandFrame shadow-md">
+                <h3 class="text-xl font-bold text-brandRed mb-2 flex items-center gap-2">
+                    <i class="fa-solid fa-puzzle-piece text-brandBlue"></i> Jeu 2 : Reconstitue les expressions figées
+                </h3>
+                <p class="text-sm text-gray-600 mb-4">Associe le verbe à gauche avec le complément à droite pour former le bon bloc d'expression FLE.</p>
+
+                <div id="expressions-container" class="grid grid-cols-1 sm:grid-cols-2 gap-3"></div>
+            </div>
+
+            <!-- GAME 3: FILL IN THE BLANKS (SHUFFLED OPTIONS) -->
+            <div class="bg-white rounded-2xl p-6 border-2 border-brandFrame shadow-md">
+                <h3 class="text-xl font-bold text-brandRed mb-2 flex items-center gap-2">
+                    <i class="fa-solid fa-pen-to-square text-brandBlue"></i> Jeu 3 : Complète les phrases avec le bon mot
+                </h3>
+                <p class="text-sm text-gray-600 mb-4">Choisis le mot exact dans le menu déroulant pour donner du sens à chaque phrase.</p>
+
+                <div id="fill-blanks-container" class="space-y-4"></div>
+            </div>
+
+            <!-- GAME 4: MINI QUIZ TRUE/FALSE & INTRUDER (ENHANCED FEEDBACK) -->
+            <div class="bg-white rounded-2xl p-6 border-2 border-brandFrame shadow-md">
+                <h3 class="text-xl font-bold text-brandRed mb-2 flex items-center gap-2">
+                    <i class="fa-solid fa-bolt text-brandBlue"></i> Jeu 4 : Mini-Quiz Intrus & Vrai/Faux
+                </h3>
+                <p class="text-sm text-gray-600 mb-4">Trouve l'intrus ou indique si l'affirmation sur le vocabulaire est vraie.</p>
+
+                <div id="mini-quiz-container" class="space-y-4"></div>
+            </div>
+
+            <!-- LEADERBOARD / CLASSEMENT FINAL -->
+            <div class="bg-white rounded-2xl p-6 border-2 border-brandFrame shadow-md text-center">
+                <h3 class="text-2xl font-black text-brandRed mb-2"><i class="fa-solid fa-trophy text-yellow-500"></i> Classement des Élèves</h3>
+                <p class="text-gray-600 text-sm mb-6">Enregistre ton prénom pour faire partie du tableau d'honneur !</p>
+
+                <div class="max-w-md mx-auto flex gap-2 mb-6">
+                    <input type="text" id="player-name" placeholder="Ton prénom (ex: Sarah)" class="flex-grow px-4 py-2 rounded-xl border-2 border-brandFrame focus:border-brandBlue focus:outline-none">
+                    <button onclick="saveScore()" class="bg-brandRed text-white font-bold px-6 py-2 rounded-xl hover:bg-red-700 transition shadow">
+                        Enregistrer
+                    </button>
+                </div>
+
+                <div class="max-w-md mx-auto bg-brandBg p-4 rounded-xl border border-brandFrame">
+                    <h4 class="font-bold text-brandBlue mb-3">Top Champions FLE</h4>
+                    <div id="leaderboard-list" class="space-y-2 text-sm text-left">
+                        <!-- Dynamic Leaderboard -->
+                    </div>
+                </div>
+            </div>
+
+        </section>
+
+        <section id="tab-more" class="tab-content hidden space-y-6">
+            <div class="bg-white rounded-2xl p-6 border-2 border-brandFrame shadow-md">
+                
+                <!-- Title Header -->
+                <div class="flex items-center gap-3 border-b-2 border-brandBg pb-4 mb-6">
+                    <div class="bg-brandRed text-white p-3 rounded-2xl shadow-md text-2xl flex items-center justify-center">
+                        <i class="fa-solid fa-comments"></i>
+                    </div>
+                    <div>
+                        <h2 class="text-2xl font-extrabold text-brandRed">Activité d'expression & réflexion</h2>
+                        <p class="text-sm text-gray-600 font-medium">Réponds aux questions dans les commentaires pour nous partager ton expérience !</p>
+                    </div>
+                </div>
+
+                <!-- Structured Questions Cards Grid -->
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    
+                    <!-- Question 1 -->
+                    <div class="bg-brandBg/60 p-4 rounded-xl border border-brandFrame hover:border-brandBlue transition shadow-sm space-y-2">
+                        <div class="flex items-center gap-2 text-brandRed font-black text-sm uppercase">
+                            <span class="bg-brandRed text-white rounded-full w-6 h-6 flex items-center justify-center text-xs">1</span>
+                            Information
+                        </div>
+                        <p class="text-sm font-bold text-gray-800 leading-snug">
+                            Savais-tu qu'il était possible de se baigner dans la Seine à Paris ? Quelles informations as-tu entendu sur le sujet ?
+                        </p>
+                    </div>
+
+                    <!-- Question 2 -->
+                    <div class="bg-brandBg/60 p-4 rounded-xl border border-brandFrame hover:border-brandBlue transition shadow-sm space-y-2">
+                        <div class="flex items-center gap-2 text-brandRed font-black text-sm uppercase">
+                            <span class="bg-brandRed text-white rounded-full w-6 h-6 flex items-center justify-center text-xs">2</span>
+                            Expérience personnelle
+                        </div>
+                        <p class="text-sm font-bold text-gray-800 leading-snug">
+                            Et toi, as-tu déjà nagé dans une rivière ou un fleuve ? Explique ton expérience.
+                        </p>
+                    </div>
+
+                    <!-- Question 3 -->
+                    <div class="bg-brandBg/60 p-4 rounded-xl border border-brandFrame hover:border-brandBlue transition shadow-sm space-y-2">
+                        <div class="flex items-center gap-2 text-brandRed font-black text-sm uppercase">
+                            <span class="bg-brandRed text-white rounded-full w-6 h-6 flex items-center justify-center text-xs">3</span>
+                            Avis personnel
+                        </div>
+                        <p class="text-sm font-bold text-gray-800 leading-snug">
+                            Qu'est-ce que tu en penses ? Pour toi, est-ce une bonne ou une mauvaise idée ? Pourquoi ?
+                        </p>
+                    </div>
+
+                    <!-- Question 4 -->
+                    <div class="bg-brandBg/60 p-4 rounded-xl border border-brandFrame hover:border-brandBlue transition shadow-sm space-y-2">
+                        <div class="flex items-center gap-2 text-brandRed font-black text-sm uppercase">
+                            <span class="bg-brandRed text-white rounded-full w-6 h-6 flex items-center justify-center text-xs">4</span>
+                            Dans ton pays
+                        </div>
+                        <p class="text-sm font-bold text-gray-800 leading-snug">
+                            Dans ton pays, peut-on nager dans les rivières et fleuves ? Les personnes respectent-elles la loi ? Explique ton opinion.
+                        </p>
+                    </div>
+
+                </div>
+
+            </div>
+        </section>
+
+    </main>
+
+    <footer class="bg-white border-t border-brandFrame py-4 mt-8">
+        <div class="max-w-6xl mx-auto px-4 text-center text-xs text-gray-600">
+            <p class="font-bold text-brandBlue">© French with Cédric — Tous droits réservés.</p>
+            <p class="mt-1">Activité pédagogique FLE interactive pour apprenants allophones.</p>
+        </div>
+    </footer>
+
+    <div id="modal-overlay" class="fixed inset-0 bg-black/50 hidden items-center justify-center p-4 z-50">
+        <div class="bg-white rounded-2xl p-6 max-w-sm w-full text-center border-2 border-brandFrame shadow-2xl space-y-4">
+            <div id="modal-icon" class="text-4xl">💡</div>
+            <h3 id="modal-title" class="text-xl font-bold text-brandBlue">Message</h3>
+            <p id="modal-body" class="text-gray-700 text-sm"></p>
+            <button onclick="closeModal()" class="bg-brandBlue text-white font-bold px-6 py-2 rounded-xl w-full">Compris !</button>
+        </div>
+    </div>
+
+    <script>
+        /* GLOBAL STATE */
+        let currentScore = 0;
+        let answeredQuestionsCount = 0;
+        let selectedQuestions = [];
+
+        // 20 Question Bank
+        const questionBank = [
+            { id: 1, q: "Combien de sites de baignade dans la Seine sont ouverts à Paris depuis début juillet ?", opts: ["1 site", "3 sites", "5 sites"], ans: 1, expl: "3 sites sont ouverts : Grenelle, Bercy et Le Bras Marie." },
+            { id: 2, q: "Quel site le journaliste de la vidéo visite-t-il un mois après l'ouverture ?", opts: ["Grenelle", "Bercy", "Le Bras Marie"], ans: 2, expl: "Il visite le site du Bras Marie." },
+            { id: 3, q: "Pourquoi le site du Bras Marie est-il particulièrement apprécié le matin dès 8h ?", opts: ["Les gens y font une baignade sportive avant d'aller travailler.", "L'eau y est plus chaude le matin.", "C'est le seul moment où le site est gratuit."], ans: 0, expl: "Les gens y font une baignade sportive avant le travail." },
+            { id: 4, q: "Vrai ou Faux ? Le site de Bercy offre des horaires plus larges, de 11h à 21h, pour permettre aux gens de prendre leur temps.", opts: ["Vrai", "Faux"], ans: 0, expl: "C'est vrai, les horaires s'étendent de 11h à 21h." },
+            { id: 5, q: "Quelle est la particularité du site de Grenelle ?", opts: ["On a une vue directe sur la tour Eiffel.", "C'est le site le plus grand de Paris.", "L'eau y est particulièrement profonde."], ans: 0, expl: "Grenelle offre une vue splendide sur la tour Eiffel." },
+            { id: 6, q: "Que met en avant la personne pour « vendre » le site du Bras Marie ?", opts: ["Sa proximité avec le centre commercial.", "Le cadre historique de la ville de Paris.", "Ses grands toboggans aquatiques."], ans: 1, expl: "Elle met en valeur le cadre historique de Paris." },
+            { id: 7, q: "Vrai ou Faux ? La première personne interrogée avait peur de se baigner dans la Seine pour la première fois.", opts: ["Vrai", "Faux"], ans: 1, expl: "Faux, elle n'avait aucune appréhension." },
+            { id: 8, q: "Pourquoi cette personne n'a-t-elle aucune peur de se baigner dans le fleuve ?", opts: ["Elle a déjà nagé dans des canaux par le passé.", "Elle est nageuse professionnelle.", "Elle sait que l'eau est traitée avec du chlore."], ans: 0, expl: "Elle avait déjà nagé dans des canaux auparavant." },
+            { id: 9, q: "Quel est le rôle principal des sauveteurs présents sur les sites de baignade ?", opts: ["Vendre des maillots de bain et des serviettes.", "Aider les gens dans l'eau et faire de la prévention pour la sécurité.", "Nettoyer le fond du fleuve."], ans: 1, expl: "Ils aident dans l'eau et font de la prévention." },
+            { id: 10, q: "Vrai ou Faux ? Les sauveteurs surveillent uniquement ce qui se passe à l'intérieur du bassin de baignade, pas sur les bords.", opts: ["Vrai", "Faux"], ans: 1, expl: "Faux, ils surveillent aussi le bord de l'eau." },
+            { id: 11, q: "Quelle difficulté physique est mentionnée à propos de la baignade dans la Seine ?", opts: ["Le courant, qu'on ne remarque pas forcément de l'extérieur.", "La température extrême de l'eau, toujours glacée.", "Les vagues créées par les grands bateaux."], ans: 0, expl: "Le courant est puissant et trompeur." },
+            { id: 12, q: "Comment un baigneur qualifie-t-il son expérience juste après être sorti de l'eau ?", opts: ["Décevante et fatigante.", "Géniale, avec une eau toute douce.", "Dangereuse mais stimulante."], ans: 1, expl: "Il dit que c'est génial avec une eau toute douce." },
+            { id: 13, q: "Vrai ou Faux ? Selon les baigneurs, nager contre le courant demande un effort physique important.", opts: ["Vrai", "Faux"], ans: 0, expl: "Vrai : « Nager à contre-courant, c'est dur quand même »." },
+            { id: 14, q: "Comment est la température de l'eau de la Seine par rapport à l'eau de la mer d'après un usager ?", opts: ["Plus froide que la mer.", "Plus chaude que la mer.", "Exactement identique."], ans: 1, expl: "Selon l'usager, elle est plus chaude que la mer." },
+            { id: 15, q: "Quelle expérience étrangère cite une personne pour expliquer pourquoi se baigner dans un fleuve lui paraît normal ?", opts: ["Sa baignade dans le Danube à Vienne, en Autriche.", "Sa baignade dans la Tamise à Londres, en Angleterre.", "Sa baignade dans le Rhône à Genève, en Suisse."], ans: 0, expl: "Elle cite sa baignade dans le Danube à Vienne." },
+            { id: 16, q: "Vrai ou Faux ? La personne estime que si la baignade en fleuve est possible dans une grande ville européenne comme Vienne, elle doit l'être aussi à Paris.", opts: ["Vrai", "Faux"], ans: 0, expl: "Vrai, il est naturel de pouvoir le faire à Paris." },
+            { id: 17, q: "Que signifie le sigle « FMI » dans le contexte du site de baignade ?", opts: ["Formation Minimale d'Intervention", "Fréquentation Maximale Instantanée", "Fond Marine et Immersion"], ans: 1, expl: "FMI = Fréquentation Maximale Instantanée." },
+            { id: 18, q: "Combien de personnes au maximum peuvent se trouver en même temps sur le site présenté ?", opts: ["50 personnes", "150 personnes", "500 personnes"], ans: 1, expl: "La jauge maximale est fixée à 150 personnes." },
+            { id: 19, q: "Quel a été le principal problème durant le premier mois d'ouverture des sites de baignade ?", opts: ["La mauvaise météo qui a empêché l'ouverture régulière.", "Le manque de maîtres-nageurs disponibles.", "Une forte pollution imprévue du fleuve."], ans: 0, expl: "La météo pluvieuse a contraint des fermetures." },
+            { id: 20, q: "Environ combien de temps les sites ont-ils pu rester ouverts durant ce premier mois ?", opts: ["Seulement 2 jours", "La moitié du temps", "Tous les jours sans exception"], ans: 1, expl: "Les sites n'ont pu ouvrir que la moitié du temps environ." }
+        ];
+
+        /* VOCABULARY MATCHING DATA */
+        const matchingPairs = [
+            { word: "un sauveteur", def: "Une personne formée pour protéger et secourir les baigneurs." },
+            { word: "une baignade", def: "L'action de se plonger et de nager dans l'eau." },
+            { word: "un canal", def: "Un cours d'eau artificiel fait par l'homme." },
+            { word: "un site emblématique", def: "Un lieu célèbre et très symbolique d'une ville." },
+            { word: "le bord de l'eau", def: "La partie de terre juste à côté du fleuve." },
+            { word: "la prévention", def: "L'ensemble des conseils pour éviter les accidents." }
+        ];
+
+        /* EXPRESSIONS DATA */
+        const expressionPairs = [
+            { verb: "mettre", rest: "la pression" },
+            { verb: "prendre", rest: "son temps" },
+            { verb: "nager à", rest: "contre-courant" },
+            { verb: "faire de", rest: "la prévention" },
+            { verb: "attendre", rest: "une occasion" },
+            { verb: "se", rest: "baigner" }
+        ];
+
+        /* FILL BLANKS DATA */
+        const fillBlankQuestions = [
+            { text: "Avant de sauter dans la Seine, elle n'avait aucune ____________.", target: "appréhension", opts: ["appréhension", "baignade", "pression"] },
+            { text: "Depuis le pont, les touristes profitent d'une magnifique ____________ sur la tour Eiffel.", target: "vue", opts: ["vue", "prévention", "occasion"] },
+            { text: "Le sauveteur est là pour surveiller et faire de la ____________ auprès des enfants.", target: "prévention", opts: ["prévention", "vue", "pression"] },
+            { text: "C'est difficile de nager à ____________ car le fleuve pousse très fort.", target: "contre-courant", opts: ["contre-courant", "temps", "canal"] }
+        ];
+
+        /* MINI QUIZ DATA WITH FEEDBACK EXPLANATIONS */
+        const miniQuizData = [
+            { q: "Quel mot n'est PAS lié à l'eau ou à la sécurité ?", opts: ["un sauveteur", "une baignade", "un ordinateur"], correct: 2, expl: "« Un ordinateur » est un outil informatique, alors qu'un sauveteur et la baignade appartiennent au domaine aquatique !" },
+            { q: "Vrai ou Faux : « Mettre la pression » signifie demander à quelqu'un de se détendre.", opts: ["Vrai", "Faux"], correct: 1, expl: "C'est Faux ! « Mettre la pression » signifie insister ou forcer quelqu'un à agir vite." },
+            { q: "Quel est le contraire de « prendre son temps » ?", opts: ["Se dépêcher", "Attendre une occasion", "Se baigner"], correct: 0, expl: "« Se dépêcher » signifie faire quelque chose rapidement, c'est l'opposé de « prendre son temps »." }
+        ];
+
+        window.onload = function() {
+            initQuiz();
+            initMatchingGame();
+            initExpressionsGame();
+            initFillBlanksGame();
+            initMiniQuizGame();
+            updateLeaderboardUI();
+        };
+
+        function switchTab(tabId) {
+            document.querySelectorAll('.tab-content').forEach(el => el.classList.add('hidden'));
+            document.querySelectorAll('.tab-btn').forEach(btn => {
+                btn.classList.remove('active');
+                btn.classList.add('text-brandBlue');
+            });
+
+            document.getElementById(tabId).classList.remove('hidden');
+            const activeBtn = document.getElementById('btn-' + tabId);
+            activeBtn.classList.add('active');
+            activeBtn.classList.remove('text-brandBlue');
+        }
+
+        function showModal(title, message, icon = '💡') {
+            document.getElementById('modal-title').innerText = title;
+            document.getElementById('modal-body').innerText = message;
+            document.getElementById('modal-icon').innerText = icon;
+            const overlay = document.getElementById('modal-overlay');
+            overlay.classList.remove('hidden');
+            overlay.classList.add('flex');
+        }
+
+        function closeModal() {
+            const overlay = document.getElementById('modal-overlay');
+            overlay.classList.add('hidden');
+            overlay.classList.remove('flex');
+        }
+
+        function addPoints(pts) {
+            currentScore += pts;
+            document.getElementById('global-score').innerText = currentScore + " pts";
+            
+            const pct = Math.min(100, Math.round((currentScore / 250) * 100));
+            document.getElementById('global-progress').style.width = pct + "%";
+
+            confetti({
+                particleCount: 25,
+                spread: 60,
+                origin: { y: 0.8 }
+            });
+        }
+
+        function initQuiz() {
+            const shuffled = [...questionBank].sort(() => 0.5 - Math.random());
+            selectedQuestions = shuffled.slice(0, 10).sort((a, b) => a.id - b.id);
+            
+            const container = document.getElementById('quiz-container');
+            container.innerHTML = '';
+            answeredQuestionsCount = 0;
+            const statusEl = document.getElementById('quiz-status');
+            if (statusEl) statusEl.innerText = `Répondu : 0 / 10`;
+
+            selectedQuestions.forEach((q, idx) => {
+                const card = document.createElement('div');
+                card.className = "p-5 rounded-xl border border-brandFrame bg-brandBg/40 shadow-sm space-y-3";
+                
+                let optsHTML = q.opts.map((opt, oIdx) => `
+                    <button onclick="checkQuizAnswer(${idx}, ${oIdx}, this)" class="w-full text-left px-4 py-2.5 rounded-lg border border-gray-300 bg-white hover:bg-blue-50 hover:border-brandBlue font-medium transition text-sm">
+                        <span class="font-bold text-brandBlue mr-2">${String.fromCharCode(65 + oIdx)})</span> ${opt}
+                    </button>
+                `).join('');
+
+                card.innerHTML = `
+                    <div class="flex items-start gap-2">
+                        <span class="bg-brandBlue text-white text-xs font-bold px-2.5 py-1 rounded-full">Q${idx + 1}</span>
+                        <h3 class="font-bold text-gray-900 text-base flex-grow">${q.q}</h3>
+                    </div>
+                    <div class="space-y-2 mt-2">${optsHTML}</div>
+                    <div id="quiz-expl-${idx}" class="hidden p-3 rounded-lg text-xs font-semibold"></div>
+                `;
+                container.appendChild(card);
+            });
+        }
+
+        function checkQuizAnswer(qIdx, selectedOptIdx, btn) {
+            const q = selectedQuestions[qIdx];
+            const parent = btn.parentElement;
+            const buttons = parent.querySelectorAll('button');
+            const explBox = document.getElementById(`quiz-expl-${qIdx}`);
+
+            buttons.forEach(b => b.disabled = true);
+
+            if (selectedOptIdx === q.ans) {
+                btn.classList.remove('bg-white');
+                btn.classList.add('bg-green-100', 'border-green-600', 'text-green-800');
+                explBox.className = "p-3 rounded-lg text-xs font-semibold bg-green-50 text-green-900 border border-green-300 block";
+                explBox.innerText = "✓ Excellent ! " + q.expl;
+                addPoints(10);
+            } else {
+                btn.classList.remove('bg-white');
+                btn.classList.add('bg-red-100', 'border-red-600', 'text-red-800');
+                buttons[q.ans].classList.add('bg-green-100', 'border-green-600', 'text-green-800');
+                explBox.className = "p-3 rounded-lg text-xs font-semibold bg-red-50 text-red-900 border border-red-300 block";
+                explBox.innerText = "✗ Mauvaise réponse. " + q.expl;
+            }
+
+            answeredQuestionsCount++;
+            const statusEl = document.getElementById('quiz-status');
+            if (statusEl) statusEl.innerText = `Répondu : ${answeredQuestionsCount} / 10`;
+        }
+
+        let selectedWordBtn = null;
+
+        function initMatchingGame() {
+            const wordsContainer = document.getElementById('matching-words');
+            const defsContainer = document.getElementById('matching-defs');
+            wordsContainer.innerHTML = '';
+            defsContainer.innerHTML = '';
+
+            const shuffledWords = [...matchingPairs].sort(() => 0.5 - Math.random());
+            const shuffledDefs = [...matchingPairs].sort(() => 0.5 - Math.random());
+
+            shuffledWords.forEach(p => {
+                const btn = document.createElement('button');
+                btn.className = "w-full p-3 bg-brandBg border border-brandFrame rounded-xl font-bold text-sm text-left hover:border-brandBlue transition";
+                btn.innerText = p.word;
+                btn.onclick = () => selectWord(btn, p.word);
+                wordsContainer.appendChild(btn);
+            });
+
+            shuffledDefs.forEach(p => {
+                const btn = document.createElement('button');
+                btn.className = "w-full p-3 bg-gray-50 border border-brandFrame rounded-xl text-xs md:text-sm text-left hover:border-brandBlue transition";
+                btn.innerText = p.def;
+                btn.onclick = () => selectDef(btn, p.def);
+                defsContainer.appendChild(btn);
+            });
+        }
+
+        function selectWord(btn, word) {
+            document.querySelectorAll('#matching-words button').forEach(b => b.classList.remove('border-brandBlue', 'bg-blue-100'));
+            selectedWordBtn = { btn, word };
+            btn.classList.add('border-brandBlue', 'bg-blue-100');
+        }
+
+        function selectDef(defBtn, defText) {
+            if (!selectedWordBtn) {
+                showModal("Astuce", "Sélectionne d'abord un mot dans la colonne de gauche !", "💡");
+                return;
+            }
+
+            const match = matchingPairs.find(p => p.word === selectedWordBtn.word);
+
+            if (match && match.def === defText) {
+                selectedWordBtn.btn.className = "w-full p-3 bg-green-100 border-2 border-green-500 text-green-900 rounded-xl font-bold text-sm text-left cursor-not-allowed";
+                defBtn.className = "w-full p-3 bg-green-100 border-2 border-green-500 text-green-900 rounded-xl text-xs md:text-sm text-left cursor-not-allowed";
+                selectedWordBtn.btn.disabled = true;
+                defBtn.disabled = true;
+                selectedWordBtn = null;
+                addPoints(15);
+                document.getElementById('matching-feedback').innerText = "✓ Bonne association !";
+                document.getElementById('matching-feedback').className = "mt-4 font-bold text-center text-green-600";
+            } else {
+                defBtn.classList.add('bg-red-100', 'border-red-500');
+                setTimeout(() => defBtn.classList.remove('bg-red-100', 'border-red-500'), 1000);
+                document.getElementById('matching-feedback').innerText = "✗ Essaie encore !";
+                document.getElementById('matching-feedback').className = "mt-4 font-bold text-center text-brandRed";
+            }
+        }
+
+        function initExpressionsGame() {
+            const container = document.getElementById('expressions-container');
+            container.innerHTML = '';
+
+            expressionPairs.forEach((item) => {
+                const box = document.createElement('div');
+                box.className = "flex items-center gap-2 p-3 bg-brandBg/60 rounded-xl border border-brandFrame";
+                
+                box.innerHTML = `
+                    <span class="font-bold text-brandRed bg-white px-2 py-1 rounded border border-gray-300 text-xs">${item.verb}</span>
+                    <select onchange="checkExpression(this, '${item.rest}')" class="flex-grow p-2 rounded-lg border border-gray-300 text-sm focus:outline-none">
+                        <option value="">-- Choisir la suite --</option>
+                        ${expressionPairs.map(e => `<option value="${e.rest}">${e.rest}</option>`).sort().join('')}
+                    </select>
+                `;
+                container.appendChild(box);
+            });
+        }
+
+        function checkExpression(selectEl, correctRest) {
+            if (selectEl.value === correctRest) {
+                selectEl.className = "flex-grow p-2 rounded-lg border-2 border-green-500 bg-green-50 text-green-900 font-bold text-sm";
+                selectEl.disabled = true;
+                addPoints(10);
+            } else if (selectEl.value !== "") {
+                selectEl.className = "flex-grow p-2 rounded-lg border-2 border-red-500 bg-red-50 text-red-900 text-sm";
+                setTimeout(() => {
+                    selectEl.className = "flex-grow p-2 rounded-lg border border-gray-300 text-sm focus:outline-none";
+                }, 1200);
+            }
+        }
+
+        function initFillBlanksGame() {
+            const container = document.getElementById('fill-blanks-container');
+            container.innerHTML = '';
+
+            fillBlankQuestions.forEach((q, idx) => {
+                const item = document.createElement('div');
+                item.className = "p-4 bg-gray-50 rounded-xl border border-brandFrame space-y-2";
+
+                // Shuffle options so target is not always first
+                const shuffledOpts = [...q.opts].sort(() => 0.5 - Math.random());
+
+                const sentenceWithSelect = q.text.replace('____________', `
+                    <select onchange="checkBlank(this, '${q.target}')" class="mx-1 p-1.5 rounded border border-brandBlue font-bold text-brandBlue bg-white text-sm">
+                        <option value="">[...]</option>
+                        ${shuffledOpts.map(o => `<option value="${o}">${o}</option>`).join('')}
+                    </select>
+                `);
+
+                item.innerHTML = `<p class="text-sm md:text-base text-gray-800">${idx + 1}. ${sentenceWithSelect}</p>`;
+                container.appendChild(item);
+            });
+        }
+
+        function checkBlank(selectEl, target) {
+            if (selectEl.value === target) {
+                selectEl.className = "mx-1 p-1.5 rounded border-2 border-green-600 bg-green-100 font-bold text-green-900 text-sm";
+                selectEl.disabled = true;
+                addPoints(10);
+            } else if (selectEl.value !== "") {
+                selectEl.className = "mx-1 p-1.5 rounded border-2 border-red-500 bg-red-100 text-red-900 text-sm";
+            }
+        }
+
+        function initMiniQuizGame() {
+            const container = document.getElementById('mini-quiz-container');
+            container.innerHTML = '';
+
+            miniQuizData.forEach((mq, idx) => {
+                const div = document.createElement('div');
+                div.className = "p-4 bg-brandBg/50 rounded-xl border border-brandFrame space-y-2";
+                
+                let btnsHTML = mq.opts.map((opt, oIdx) => `
+                    <button onclick="checkMiniQuiz(${idx}, ${oIdx}, this)" class="px-3 py-1.5 rounded-lg border border-gray-300 bg-white hover:bg-brandBlue hover:text-white transition font-medium text-xs">
+                        ${opt}
+                    </button>
+                `).join(' ');
+
+                div.innerHTML = `
+                    <p class="font-bold text-sm text-brandBlue">${idx + 1}. ${mq.q}</p>
+                    <div class="flex flex-wrap gap-2 mt-1">${btnsHTML}</div>
+                    <div id="mini-expl-${idx}" class="hidden p-3 rounded-lg text-xs font-semibold mt-2"></div>
+                `;
+                container.appendChild(div);
+            });
+        }
+
+        function checkMiniQuiz(qIdx, optIdx, btn) {
+            const mq = miniQuizData[qIdx];
+            const parent = btn.parentElement;
+            const explBox = document.getElementById(`mini-expl-${qIdx}`);
+            
+            parent.querySelectorAll('button').forEach(b => b.disabled = true);
+
+            if (optIdx === mq.correct) {
+                btn.className = "px-3 py-1.5 rounded-lg bg-green-600 text-white font-bold text-xs";
+                explBox.className = "p-3 rounded-lg text-xs font-semibold bg-green-100 text-green-900 border border-green-400 block mt-2";
+                explBox.innerText = "✓ Bonne réponse ! " + mq.expl;
+                addPoints(10);
+            } else {
+                btn.className = "px-3 py-1.5 rounded-lg bg-red-600 text-white font-bold text-xs";
+                // Highlight the correct answer as well
+                const buttons = parent.querySelectorAll('button');
+                buttons[mq.correct].className = "px-3 py-1.5 rounded-lg bg-green-600 text-white font-bold text-xs";
+                
+                explBox.className = "p-3 rounded-lg text-xs font-semibold bg-red-100 text-red-900 border border-red-400 block mt-2";
+                explBox.innerText = "✗ Erreur. " + mq.expl;
+            }
+        }
+
+        function submitReflection() {
+            const text = document.getElementById('student-reflection').value.trim();
+            if (text.length < 20) {
+                showModal("Texte trop court", "Écris au moins deux phrases pour expliquer tes idées et répondre aux questions !", "✍️");
+                return;
+            }
+            showModal("Bravo !", "Ton texte a été validé avec succès. Tu gagnes +50 points !", "🌟");
+            addPoints(50);
+        }
+
+        function copyReflection() {
+            const text = document.getElementById('student-reflection').value;
+            if (!text) {
+                showModal("Information", "Rédige d'abord ton texte avant de le copier.", "ℹ️");
+                return;
+            }
+            navigator.execCommand('copy');
+            showModal("Copié !", "Ton texte a été copié dans le presse-papier.", "📋");
+        }
+
+        function saveScore() {
+            const name = document.getElementById('player-name').value.trim();
+            if (!name) {
+                showModal("Prénom requis", "S'il te plaît, entre ton prénom pour le classement.", "👤");
+                return;
+            }
+
+            let scores = JSON.parse(localStorage.getItem('fle_seine_scores') || '[]');
+            scores.push({ name: name, score: currentScore, date: new Date().toLocaleDateString() });
+            scores.sort((a, b) => b.score - a.score);
+            scores = scores.slice(0, 5); // Keep Top 5
+
+            localStorage.setItem('fle_seine_scores', JSON.stringify(scores));
+            updateLeaderboardUI();
+            showModal("Enregistré !", `${name}, ton score de ${currentScore} pts est enregistré !`, "🏆");
+        }
+
+        function updateLeaderboardUI() {
+            const listEl = document.getElementById('leaderboard-list');
+            let scores = JSON.parse(localStorage.getItem('fle_seine_scores') || '[]');
+
+            if (scores.length === 0) {
+                listEl.innerHTML = `<p class="text-xs text-gray-500 italic text-center">Aucun score pour l'instant. Sois le premier !</p>`;
+                return;
+            }
+
+            listEl.innerHTML = scores.map((s, idx) => `
+                <div class="flex justify-between items-center p-2 rounded-lg ${idx === 0 ? 'bg-yellow-200 font-bold' : 'bg-white'} border border-gray-200">
+                    <span>${idx + 1}. 🥇 ${s.name}</span>
+                    <span class="text-brandBlue font-extrabold">${s.score} pts</span>
+                </div>
+            `).join('');
+        }
+    </script>
+</body>
+</html>
